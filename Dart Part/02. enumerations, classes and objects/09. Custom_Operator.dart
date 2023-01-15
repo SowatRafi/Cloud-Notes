@@ -13,9 +13,5 @@ void main(List<String> args) {
   final p1 = Person("Foo");
   final p2 = Person("Foo");
 
-  if (p1 == p2) {
-    print("They are equal");
-  } else {
-    print("They are not equal.");
-  }
+  p1 == p2 ? print("They are equal") : print("They are not equal.");
 }
