@@ -98,6 +98,8 @@ class _RegisterViewState extends State<RegisterView> {
                           print("Weak password! Enter a strong one...");
                         } else if (e.code == "email-already-in-use") {
                           print("This email is registered already!");
+                        } else if (e.code == "invalid-email") {
+                          print("Your email is invalid...");
                         }
                       }
                     },
