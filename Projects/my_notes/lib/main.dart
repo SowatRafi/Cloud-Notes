@@ -93,7 +93,11 @@ class _RegisterViewState extends State<RegisterView> {
                             .createUserWithEmailAndPassword(
                                 email: email, password: password);
                         print(userCredential);
-                      } on FirebaseAuthException catch (e) {}
+                      } on FirebaseAuthException catch (e) {
+                        if (e.code == "weak-password") {
+                          print("Weak password! Enter a strong one...");
+                        }
+                      }
                     },
                     child: const Text("Register"),
                   ),
