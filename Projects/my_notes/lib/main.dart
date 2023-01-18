@@ -1,7 +1,9 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:my_notes/view/login_view.dart';
+import '/firebase_options.dart';
+import 'code_repeat.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,19 +21,19 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const HomePage(),
+      home: const LoginView(),
     );
   }
 }
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class RegisterView extends StatefulWidget {
+  const RegisterView({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<RegisterView> createState() => _RegisterViewState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _RegisterViewState extends State<RegisterView> {
   // `late` Although this field do not have any value, this field will assigned with value before it is used.
   late final TextEditingController _email;
   late final TextEditingController _password;
@@ -72,7 +74,7 @@ class _HomePageState extends State<HomePage> {
                     controller: _email,
                     autocorrect: false,
                     keyboardType: TextInputType.emailAddress,
-                    decoration: HintText('xxxxx@xxxxx.xxx'),
+                    decoration: CodeRepeat().hintText('xxxxx@xxxxx.xxx'),
                   ),
                   // password
                   TextField(
@@ -80,7 +82,7 @@ class _HomePageState extends State<HomePage> {
                     obscureText: true,
                     autocorrect: false,
                     enableInteractiveSelection: false,
-                    decoration: HintText('xxxxxxx'),
+                    decoration: CodeRepeat().hintText('xxxxxxx'),
                   ),
                   TextButton(
                     onPressed: () async {
@@ -101,9 +103,5 @@ class _HomePageState extends State<HomePage> {
         },
       ),
     );
-  }
-
-  HintText(String txt) {
-    return InputDecoration(hintText: txt);
   }
 }
