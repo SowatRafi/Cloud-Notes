@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "802859136599",
+    "firebase_url": "https://my-notes-project-49fb8-default-rtdb.firebaseio.com",
+    "project_id": "my-notes-project-49fb8",
+    "storage_bucket": "my-notes-project-49fb8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:802859136599:android:a11dc79bfc7c0894f5d512",
+        "android_client_info": {
+          "package_name": "com.SowadRafi.my_notes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "802859136599-4i92gmngv3if25aspmiak5ghmdacldog.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClAqQMS329kI_nKSQP2fVsSGpdIqOHyFM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "802859136599-4i92gmngv3if25aspmiak5ghmdacldog.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
