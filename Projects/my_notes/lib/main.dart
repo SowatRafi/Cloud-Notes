@@ -57,13 +57,19 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Column(
         children: [
+          // email
           TextField(
             controller: _email,
+            autocorrect: false,
+            keyboardType: TextInputType.emailAddress,
             decoration: HintText('xxxxx@xxxxx.xxx'),
           ),
+          // password
           TextField(
             controller: _password,
             obscureText: true,
+            autocorrect: false,
+            enableInteractiveSelection: false,
             decoration: HintText('xxxxxxx'),
           ),
           TextButton(
