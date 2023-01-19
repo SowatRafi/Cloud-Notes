@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:my_notes/firebase_options.dart';
+import 'package:my_notes/view/login_view.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const HomePage(),
+      home: const VerifyEmailView(),
     );
   }
 }
@@ -39,18 +40,40 @@ class HomePage extends StatelessWidget {
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.done:
-              final user = FirebaseAuth.instance.currentUser;
-              if (user?.emailVerified ?? false) {
-                print("You are a verified user.");
-              } else {
-                print("You need to verify your email address.");
-              }
-              return Text('Done');
+              // final user = FirebaseAuth.instance.currentUser;
+              // if (user?.emailVerified ?? false) {
+              //   return const Text('Done');
+              // } else {
+              //   return const HomePage();
+              // }
+              return const LoginView();
             default:
               return const Text("Loading....");
           }
         },
       ),
     );
+  }
+}
+
+class VerifyEmailView extends StatefulWidget {
+  const VerifyEmailView({super.key});
+
+  @override
+  State<VerifyEmailView> createState() => _VerifyEmailViewState();
+}
+
+class _VerifyEmailViewState extends State<VerifyEmailView> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(children: [
+      Text('Please verify your email address.'),
+      TextButton(
+          onPressed: () async {
+            final user = FirebaseAuth.instance.currentUser;
+            await user?.sendEmailVerification();
+          },
+          child: const Text("Send email verification."))
+    ]);
   }
 }
