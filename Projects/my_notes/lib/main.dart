@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:my_notes/firebase_options.dart';
 import 'package:my_notes/view/login_view.dart';
 import 'package:my_notes/view/register_view.dart';
+import 'package:my_notes/view/verify_email_view.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,8 +46,12 @@ class HomePage extends StatelessWidget {
             if (user != null) {
               if (user.emailVerified) {
                 print("Email is verified!");
+              } else {
+                return const VerifyEmailView();
               }
-            } else {}
+            } else {
+              return const LoginView();
+            }
             return const Text("Done");
           // if (user?.emailVerified ?? false) {
           //   return const Text('Done');
