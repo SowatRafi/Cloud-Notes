@@ -12,7 +12,7 @@ void main() {
     MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.purple,
       ),
       home: const HomePage(),
       routes: {
@@ -21,6 +21,7 @@ void main() {
         '/notes/': (context) => const NotesView(),
         //'/verify_email/': (context) => const VerifyEmailView()
       },
+      debugShowCheckedModeBanner: false,
     ),
   );
 }
