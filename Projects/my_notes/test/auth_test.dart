@@ -11,7 +11,17 @@ void main() {
     final provider = MockAuthProvider();
 
     test('Should not be initialized to begin with', () {
-      expect(provider.isInitialized, false);
+      expect(
+        provider.isInitialized,
+        false,
+      );
+    });
+
+    test("Can't log out if not initialized", () {
+      expect(
+        provider.logOut(),
+        throwsA(const TypeMatcher<NotInitializedExcepttion>()),
+      );
     });
   });
 }
