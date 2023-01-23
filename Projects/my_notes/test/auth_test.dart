@@ -28,6 +28,10 @@ void main() {
       await provider.initialize();
       expect(provider.isInitialized, true);
     });
+
+    test('Should be null after initialization', () {
+      expect(provider.currentUser, null);
+    });
   });
 }
 
