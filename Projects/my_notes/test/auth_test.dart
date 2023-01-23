@@ -26,12 +26,32 @@ void main() {
 
     test('Should able to initialized', () async {
       await provider.initialize();
-      expect(provider.isInitialized, true);
+      expect(
+        provider.isInitialized,
+        true,
+      );
     });
 
     test('Should be null after initialization', () {
-      expect(provider.currentUser, null);
+      expect(
+        provider.currentUser,
+        null,
+      );
     });
+
+    test(
+      'Should be able to initialize in less than 2 seconds',
+      () async {
+        await provider.initialize();
+        expect(
+          provider.isInitialized,
+          true,
+        );
+      },
+      timeout: const Timeout(
+        Duration(seconds: 2),
+      ),
+    );
   });
 }
 
