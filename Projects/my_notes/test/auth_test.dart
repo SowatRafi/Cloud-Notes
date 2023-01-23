@@ -1,10 +1,20 @@
+import 'dart:math';
+
 import 'package:my_notes/code_repeat.dart';
 import 'package:my_notes/services/auth/auth_exception.dart';
 import 'package:my_notes/services/auth/auth_provider.dart';
 import 'package:my_notes/services/auth/auth_user.dart';
 import 'package:test/test.dart';
 
-void main() {}
+void main() {
+  group('Mock Authentication', () {
+    final provider = MockAuthProvider();
+
+    test('Should not be initialized to begin with', () {
+      expect(provider.isInitialized, false);
+    });
+  });
+}
 
 class NotInitializedExcepttion implements Exception {}
 
