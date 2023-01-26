@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:flutter/foundation.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart'
@@ -16,6 +14,8 @@ class CouldNotDeleteUser implements Exception {}
 
 class UserAlreadyExists implements Exception {}
 
+class CouldNotFindUser implements Exception {}
+
 class NoteService {
   Database? _db;
 
@@ -25,6 +25,24 @@ class NoteService {
       throw DatabaseIsNotOpen();
     } else {
       return db;
+    }
+  }
+
+  // fetch user
+  Future<DatabaseUser> getUser({required String email}) async {
+    final db = _getDatabaseOrThrow();
+
+    final results = await db.query(
+      userTable,
+      limit: 1,
+      where: 'email = ?',
+      whereArgs: [email.toLowerCase()],
+    );
+
+    if (results.isEmpty) {
+      throw CouldNotDeleteUser();
+    } else {
+      return DatabaseUser.fromRow(results.first);
     }
   }
 
