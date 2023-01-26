@@ -20,6 +20,8 @@ class CouldNotDeleteNote implements Exception {}
 
 class CouldNotFindNote implements Exception {}
 
+class CouldNotUpdateNote implements Exception {}
+
 class NoteService {
   Database? _db;
 
@@ -29,6 +31,27 @@ class NoteService {
       throw DatabaseIsNotOpen();
     } else {
       return db;
+    }
+  }
+
+  // update note
+  Future<DatabaseNote> updateNote({
+    required DatabaseNote note,
+    required String text,
+  }) async {
+    final db = _getDatabaseOrThrow();
+
+    await getNote(id: note.id);
+
+    final updatesCount = await db.update(noteTable, {
+      textColumn: text,
+      isSyncedWithCloudColumn: 0,
+    });
+
+    if (updatesCount == 0) {
+      throw CouldNotUpdateNote();
+    } else {
+      return await getNote(id: note.id);
     }
   }
 
