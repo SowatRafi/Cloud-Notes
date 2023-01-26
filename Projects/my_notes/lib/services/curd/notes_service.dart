@@ -30,6 +30,12 @@ class NoteService {
     }
   }
 
+  // delete all notes
+  Future<int> deleteAllNotes() async {
+    final db = _getDatabaseOrThrow();
+    return await db.delete(noteTable);
+  }
+
   // delete note
   Future<void> deleteNote({required int id}) async {
     final db = _getDatabaseOrThrow();
