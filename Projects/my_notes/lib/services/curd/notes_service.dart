@@ -16,6 +16,8 @@ class UserAlreadyExists implements Exception {}
 
 class CouldNotFindUser implements Exception {}
 
+class CouldNotDeleteNote implements Exception {}
+
 class NoteService {
   Database? _db;
 
@@ -25,6 +27,19 @@ class NoteService {
       throw DatabaseIsNotOpen();
     } else {
       return db;
+    }
+  }
+
+  // delete note
+  Future<void> deleteNote({required int id}) async {
+    final db = _getDatabaseOrThrow();
+    final deletedCount = await db.delete(
+      noteTable,
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+    if (deletedCount == 0) {
+      throw CouldNotDeleteNote();
     }
   }
 
