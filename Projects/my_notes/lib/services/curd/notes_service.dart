@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:js';
 import 'package:flutter/foundation.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart'
@@ -200,6 +199,7 @@ class NoteService {
       await db.execute(createUserTable);
       // create the note table
       await db.execute(createNoteTable);
+      await _cacheNotes();
     } on MissingPlatformDirectoryException {
       throw UnableToGetDocumentsDirectory();
     }
