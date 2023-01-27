@@ -23,6 +23,13 @@ class _NotesViewState extends State<NotesView> {
     super.initState();
   }
 
+  // close DB
+  @override
+  void dispose() {
+    _noteService.close();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
