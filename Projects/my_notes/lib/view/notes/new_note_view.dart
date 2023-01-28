@@ -22,6 +22,19 @@ class _NewNoteViewState extends State<NewNoteView> {
     super.initState();
   }
 
+  // update the current note upon text changes
+  void _textControllerListener() async {
+    final note = _note;
+    if (note == null) {
+      return;
+    }
+    final text = _textController.text;
+    await _notesService.updateNote(
+      note: note,
+      text: text,
+    );
+  }
+
   // create new note
   Future<DatabaseNote> createNewNote() async {
     final existingNote = _note;
