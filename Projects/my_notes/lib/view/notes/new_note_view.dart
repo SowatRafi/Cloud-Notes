@@ -34,6 +34,18 @@ class _NewNoteViewState extends State<NewNoteView> {
     }
   }
 
+  // save the note if text is not empty
+  void _saveNoteIfTextNotEmpty() async {
+    final note = _note;
+    final text = _textController.text;
+    if (note != null && text.isNotEmpty) {
+      await _notesService.updateNote(
+        note: note,
+        text: text,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
