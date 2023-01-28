@@ -35,6 +35,12 @@ class _NewNoteViewState extends State<NewNoteView> {
     );
   }
 
+  // Text field changes to the listener
+  void _setupTextControllerListener() {
+    _textController.removeListener(_textControllerListener);
+    _textController.addListener(_textControllerListener);
+  }
+
   // create new note
   Future<DatabaseNote> createNewNote() async {
     final existingNote = _note;
