@@ -10,6 +10,7 @@ class NewNoteView extends StatefulWidget {
 
 class _NewNoteViewState extends State<NewNoteView> {
   DatabaseNote? _note;
+  late final NoteService _notesService;
 
   @override
   Widget build(BuildContext context) {
