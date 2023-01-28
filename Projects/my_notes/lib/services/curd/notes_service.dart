@@ -10,8 +10,14 @@ class NoteService {
   Database? _db;
 
   List<DatabaseNote> _notes = [];
+  static final NoteService _shared = NoteService._sharedInstance();
+  NoteService._sharedInstance();
+  factory NoteService() => _shared;
+
   final _notesStreamController =
       StreamController<List<DatabaseNote>>.broadcast();
+  // Get all notes
+  Stream<List<DatabaseNote>> get allNotes => _notesStreamController.stream;
 
   Database _getDatabaseOrThrow() {
     final db = _db;
