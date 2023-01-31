@@ -1,26 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:my_notes/constants/routes.dart';
+import 'package:my_notes/enums/menu_action.dart';
 import 'package:my_notes/services/auth/auth_service.dart';
 import 'package:my_notes/services/curd/notes_service.dart';
 import 'package:my_notes/utilities/dialogs/logout_dialog.dart';
-import 'package:my_notes/view/notes/notes_list_view.dart';
-
-import '../../enums/menu_action.dart';
+import 'package:my_notes/views/notes/notes_list_view.dart';
 
 class NotesView extends StatefulWidget {
-  const NotesView({super.key});
+  const NotesView({Key? key}) : super(key: key);
 
   @override
-  State<NotesView> createState() => _NotesViewState();
+  _NotesViewState createState() => _NotesViewState();
 }
 
 class _NotesViewState extends State<NotesView> {
-  late final NoteService _noteService;
+  late final NotesService _notesService;
   String get userEmail => AuthService.firebase().currentUser!.email!;
-  // open DB
+
   @override
   void initState() {
-    _noteService = NoteService();
+    _notesService = NotesService();
     super.initState();
   }
 
@@ -62,12 +61,12 @@ class _NotesViewState extends State<NotesView> {
         ],
       ),
       body: FutureBuilder(
-        future: _noteService.getOrCreateUser(email: userEmail),
+        future: _notesService.getOrCreateUser(email: userEmail),
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.done:
               return StreamBuilder(
-                stream: _noteService.allNotes,
+                stream: _notesService.allNotes,
                 builder: (context, snapshot) {
                   switch (snapshot.connectionState) {
                     case ConnectionState.waiting:
@@ -77,7 +76,13 @@ class _NotesViewState extends State<NotesView> {
                         return NotesListView(
                           notes: allNotes,
                           onDeleteNote: (note) async {
-                            await _noteService.deleteNote(id: note.id);
+                            await _notesService.deleteNote(id: note.id);
+                          },
+                          onTap: (note) {
+                            Navigator.of(context).pushNamed(
+                              createOrUpdateNoteRoute,
+                              arguments: note,
+                            );
                           },
                         );
                       } else {

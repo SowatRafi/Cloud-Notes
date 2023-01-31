@@ -6,7 +6,7 @@ class VerifyEmailView extends StatefulWidget {
   const VerifyEmailView({Key? key}) : super(key: key);
 
   @override
-  State<VerifyEmailView> createState() => _VerifyEmailViewState();
+  _VerifyEmailViewState createState() => _VerifyEmailViewState();
 }
 
 class _VerifyEmailViewState extends State<VerifyEmailView> {
@@ -19,10 +19,9 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
       body: Column(
         children: [
           const Text(
-              "We have sent you an email verification. Please open it to verify your account."),
+              "We've sent you an email verification. Please open it to verify your account."),
           const Text(
-              'If you have not received your email yet, please press the button below.'),
-          // send email verification button
+              "If you haven't received a verification email yet, press the button below"),
           TextButton(
             onPressed: () async {
               await AuthService.firebase().sendEmailVerification();
@@ -30,12 +29,15 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
             child: const Text('Send email verification'),
           ),
           TextButton(
-              onPressed: () async {
-                await AuthService.firebase().logOut();
-                Navigator.of(context)
-                    .pushNamedAndRemoveUntil(registerRoute, (route) => false);
-              },
-              child: const Text("Restart"))
+            onPressed: () async {
+              await AuthService.firebase().logOut();
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                registerRoute,
+                (route) => false,
+              );
+            },
+            child: const Text('Restart'),
+          )
         ],
       ),
     );

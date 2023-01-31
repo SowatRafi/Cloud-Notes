@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:my_notes/constants/routes.dart';
 import 'package:my_notes/services/auth/auth_service.dart';
-import 'package:my_notes/view/login_view.dart';
-import 'package:my_notes/view/notes/new_note_view.dart';
-import 'package:my_notes/view/notes/notes_view.dart';
-import 'package:my_notes/view/register_view.dart';
-import 'package:my_notes/view/verify_email_view.dart';
+import 'package:my_notes/views/login_view.dart';
+import 'package:my_notes/views/notes/create_update_note_view.dart';
+import 'package:my_notes/views/notes/notes_view.dart';
+import 'package:my_notes/views/register_view.dart';
+import 'package:my_notes/views/verify_email_view.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(
     MaterialApp(
-      title: 'My Notes Application',
+      title: 'My Note',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.purple,
+        primarySwatch: Colors.deepPurple,
       ),
       home: const HomePage(),
       routes: {
@@ -23,7 +24,6 @@ void main() {
         verifyEmailRoute: (context) => const VerifyEmailView(),
         createOrUpdateNoteRoute: (context) => const CreateUpdateNoteView(),
       },
-      debugShowCheckedModeBanner: false,
     ),
   );
 }

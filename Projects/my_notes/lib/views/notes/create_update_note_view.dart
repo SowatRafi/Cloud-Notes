@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:my_notes/services/auth/auth_service.dart';
 import 'package:my_notes/services/curd/notes_service.dart';
-import 'package:my_notes/utilities/dialogs/generics/get_arguments.dart';
+import 'package:my_notes/utilities/generics/get_arguments.dart';
 
 class CreateUpdateNoteView extends StatefulWidget {
-  const CreateUpdateNoteView({super.key});
+  const CreateUpdateNoteView({Key? key}) : super(key: key);
 
   @override
-  State<CreateUpdateNoteView> createState() => _CreateUpdateNoteViewState();
+  _CreateUpdateNoteViewState createState() => _CreateUpdateNoteViewState();
 }
 
 class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
   DatabaseNote? _note;
-  late final NoteService _notesService;
+  late final NotesService _notesService;
   late final TextEditingController _textController;
 
   @override
   void initState() {
-    _notesService = NoteService();
+    _notesService = NotesService();
     _textController = TextEditingController();
     super.initState();
   }

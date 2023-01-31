@@ -6,52 +6,37 @@ class AuthService implements AuthProvider {
   final AuthProvider provider;
   const AuthService(this.provider);
 
-  // to return an instance of our auth service that is already configured with a firebase auth provider
   factory AuthService.firebase() => AuthService(FirebaseAuthProvider());
 
   @override
   Future<AuthUser> createUser({
     required String email,
     required String password,
-  })
-      // createUser
-      =>
+  }) =>
       provider.createUser(
         email: email,
         password: password,
       );
 
   @override
-  // currentUser
   AuthUser? get currentUser => provider.currentUser;
 
   @override
   Future<AuthUser> logIn({
     required String email,
     required String password,
-  })
-      // logIn
-      =>
+  }) =>
       provider.logIn(
         email: email,
         password: password,
       );
 
   @override
-  Future<void> logOut()
-      // logOut
-      =>
-      provider.logOut();
+  Future<void> logOut() => provider.logOut();
 
   @override
-  Future<void> sendEmailVerification()
-      // sendEmailVerification
-      =>
-      provider.sendEmailVerification();
+  Future<void> sendEmailVerification() => provider.sendEmailVerification();
 
   @override
-  Future<void> initialize()
-      // initialize
-      =>
-      provider.initialize();
+  Future<void> initialize() => provider.initialize();
 }

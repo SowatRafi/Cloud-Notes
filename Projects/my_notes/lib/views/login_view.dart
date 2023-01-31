@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:my_notes/code_repeat.dart';
-
 import 'package:my_notes/constants/routes.dart';
-import 'package:my_notes/services/auth/auth_exception.dart';
+import 'package:my_notes/services/auth/auth_exceptions.dart';
 import 'package:my_notes/services/auth/auth_service.dart';
 import 'package:my_notes/utilities/dialogs/error_dialog.dart';
 
@@ -34,23 +32,28 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Login")),
+      appBar: AppBar(
+        title: const Text('Login'),
+      ),
       body: Column(
         children: [
-          // email
           TextField(
             controller: _email,
+            enableSuggestions: false,
             autocorrect: false,
             keyboardType: TextInputType.emailAddress,
-            decoration: CodeRepeat().hintText('xxxxx@xxxxx.xxx'),
+            decoration: const InputDecoration(
+              hintText: 'Enter your email here',
+            ),
           ),
-          // password
           TextField(
             controller: _password,
             obscureText: true,
+            enableSuggestions: false,
             autocorrect: false,
-            enableInteractiveSelection: false,
-            decoration: CodeRepeat().hintText('xxxxxxx'),
+            decoration: const InputDecoration(
+              hintText: 'Enter your password here',
+            ),
           ),
           TextButton(
             onPressed: () async {
@@ -61,32 +64,34 @@ class _LoginViewState extends State<LoginView> {
                   email: email,
                   password: password,
                 );
-
                 final user = AuthService.firebase().currentUser;
-
                 if (user?.isEmailVerified ?? false) {
-                  // if email verified
-                  Navigator.of(context)
-                      .pushNamedAndRemoveUntil(notesRoute, (route) => false);
-                } else {
-                  // not verified
+                  // user's email is verified
                   Navigator.of(context).pushNamedAndRemoveUntil(
-                      verifyEmailRoute, (route) => false);
+                    notesRoute,
+                    (route) => false,
+                  );
+                } else {
+                  // user's email is NOT verified
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                    verifyEmailRoute,
+                    (route) => false,
+                  );
                 }
               } on UserNotFoundAuthException {
                 await showErrorDialog(
                   context,
-                  'User not found!',
+                  'User not found',
                 );
               } on WrongPasswordAuthException {
                 await showErrorDialog(
                   context,
-                  'Wrong credentials!',
+                  'Wrong credentials',
                 );
               } on GenericAuthException {
                 await showErrorDialog(
                   context,
-                  'Authentication Error!',
+                  'Authentication error',
                 );
               }
             },
