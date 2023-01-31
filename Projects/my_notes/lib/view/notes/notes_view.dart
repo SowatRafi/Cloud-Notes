@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:my_notes/constants/routes.dart';
 import 'package:my_notes/services/auth/auth_service.dart';
 import 'package:my_notes/services/curd/notes_service.dart';
+import 'package:my_notes/utilities/dialogs/logout_dialog.dart';
+import 'package:my_notes/view/notes/notes_list_view.dart';
 
 import '../../enums/menu_action.dart';
 
@@ -26,7 +28,7 @@ class _NotesViewState extends State<NotesView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("My Notes"),
+        title: const Text('Your Notes'),
         actions: [
           IconButton(
             onPressed: () {
@@ -72,6 +74,12 @@ class _NotesViewState extends State<NotesView> {
                     case ConnectionState.active:
                       if (snapshot.hasData) {
                         final allNotes = snapshot.data as List<DatabaseNote>;
+                        return NotesListView(
+                          notes: allNotes,
+                          onDeleteNote: (note) async {
+                            await _noteService.deleteNote(id: note.id);
+                          },
+                        );
                       } else {
                         return const CircularProgressIndicator();
                       }
