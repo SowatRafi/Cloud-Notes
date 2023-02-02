@@ -4,8 +4,10 @@ import 'package:my_notes/services/cloud/cloud_storage_constants.dart';
 import 'package:my_notes/services/cloud/cloud_storage_exceptions.dart';
 
 class FirebaseCloudStorage {
+  // Grabbing all notes
   final notes = FirebaseFirestore.instance.collection('notes');
 
+  // Deleting notes
   Future<void> deleteNote({required String documentId}) async {
     try {
       await notes.doc(documentId).delete();
@@ -14,6 +16,7 @@ class FirebaseCloudStorage {
     }
   }
 
+  // Updating existing notes
   Future<void> updateNote({
     required String documentId,
     required String text,
@@ -25,11 +28,13 @@ class FirebaseCloudStorage {
     }
   }
 
+  // All notes for a specific user
   Stream<Iterable<CloudNote>> allNotes({required String ownerUserId}) =>
       notes.snapshots().map((event) => event.docs
           .map((doc) => CloudNote.fromSnapshot(doc))
           .where((note) => note.ownerUserId == ownerUserId));
 
+  // Getting notes by userID
   Future<Iterable<CloudNote>> getNotes({required String ownerUserId}) async {
     try {
       return await notes
@@ -54,6 +59,7 @@ class FirebaseCloudStorage {
     }
   }
 
+  // Creating new notes
   void createNewNote({required String ownerUserId}) async {
     await notes.add({
       ownerUserIdFieldName: ownerUserId,
