@@ -10,7 +10,7 @@ class NotesView extends StatefulWidget {
   const NotesView({Key? key}) : super(key: key);
 
   @override
-  _NotesViewState createState() => _NotesViewState();
+  State<NotesView> createState() => _NotesViewState();
 }
 
 class _NotesViewState extends State<NotesView> {
@@ -27,7 +27,7 @@ class _NotesViewState extends State<NotesView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('My Notes'),
+        title: const Text('Cloud Notes'),
         actions: [
           IconButton(
             onPressed: () {

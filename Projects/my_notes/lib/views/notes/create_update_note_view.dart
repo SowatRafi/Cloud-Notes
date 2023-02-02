@@ -7,7 +7,7 @@ class CreateUpdateNoteView extends StatefulWidget {
   const CreateUpdateNoteView({Key? key}) : super(key: key);
 
   @override
-  _CreateUpdateNoteViewState createState() => _CreateUpdateNoteViewState();
+  State<CreateUpdateNoteView> createState() => _CreateUpdateNoteViewState();
 }
 
 class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
