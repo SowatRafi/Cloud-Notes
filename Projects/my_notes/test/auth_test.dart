@@ -4,7 +4,7 @@ import 'package:my_notes/services/auth/auth_user.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('Mock Authentication:', () {
+  group('Mock Authentication', () {
     final provider = MockAuthProvider();
     test('Should not be initialized to begin with', () {
       expect(provider.isInitialized, false);
@@ -37,7 +37,7 @@ void main() {
 
     test('Create user should delegate to logIn function', () async {
       final badEmailUser = provider.createUser(
-        email: 'foo@bar.com',
+        email: 'email@domain.com',
         password: 'anypassword',
       );
 
@@ -45,15 +45,15 @@ void main() {
           throwsA(const TypeMatcher<UserNotFoundAuthException>()));
 
       final badPasswordUser = provider.createUser(
-        email: 'someone@bar.com',
-        password: 'foobar',
+        email: 'someone@dmn.com',
+        password: 'passwrd',
       );
       expect(badPasswordUser,
           throwsA(const TypeMatcher<WrongPasswordAuthException>()));
 
       final user = await provider.createUser(
-        email: 'foo',
-        password: 'bar',
+        email: 'username',
+        password: 'passwrdT',
       );
       expect(provider.currentUser, user);
       expect(user.isEmailVerified, false);
@@ -113,9 +113,13 @@ class MockAuthProvider implements AuthProvider {
     required String password,
   }) {
     if (!isInitialized) throw NotInitializedException();
-    if (email == 'foo@bar.com') throw UserNotFoundAuthException();
-    if (password == 'foobar') throw WrongPasswordAuthException();
-    const user = AuthUser(isEmailVerified: false, email: '');
+    if (email == 'email@domain.com') throw UserNotFoundAuthException();
+    if (password == 'passwrd') throw WrongPasswordAuthException();
+    const user = AuthUser(
+      id: 'my_id',
+      isEmailVerified: false,
+      email: 'email@domain.com',
+    );
     _user = user;
     return Future.value(user);
   }
@@ -133,7 +137,11 @@ class MockAuthProvider implements AuthProvider {
     if (!isInitialized) throw NotInitializedException();
     final user = _user;
     if (user == null) throw UserNotFoundAuthException();
-    const newUser = AuthUser(isEmailVerified: true, email: '');
+    const newUser = AuthUser(
+      id: 'my_id',
+      isEmailVerified: true,
+      email: 'email@domain.com',
+    );
     _user = newUser;
   }
 }
