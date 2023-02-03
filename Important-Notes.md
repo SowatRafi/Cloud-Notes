@@ -6,6 +6,14 @@ Using `flutter create --org xxx.domain appname`
 
 Use `flutter pub add test --dev`
 
-### To test
+### TO TEST
 
 Use `flutter test test/file_name.dart`
+
+### Whas is Bloc and why do we need it?
+
+It allows us to separate our business logic from out presentation
+
+### What is a flutter_bloc?
+
+A set of Flutter specific Bloc code that helps us with creating widgets
