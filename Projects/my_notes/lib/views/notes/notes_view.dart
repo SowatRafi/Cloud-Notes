@@ -31,7 +31,7 @@ class _NotesViewState extends State<NotesView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Your Notes'),
+        title: const Text('Cloud Notes'),
         actions: [
           IconButton(
             onPressed: () {
