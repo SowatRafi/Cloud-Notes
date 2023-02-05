@@ -6,6 +6,13 @@ import 'package:my_notes/services/auth/bloc/auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc(AuthProvider provider)
       : super(const AuthStateUninitialized(isLoading: true)) {
+    //register
+    on<AuthEventShouldRegister>((event, emit) {
+      emit(const AuthStateRegistering(
+        exception: null,
+        isLoading: false,
+      ));
+    });
     //forgot password
     on<AuthEventForgotPassword>((event, emit) async {
       emit(const AuthStateForgotPassword(
@@ -58,7 +65,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         await provider.sendEmailVerification();
         emit(const AuthStateNeedsVerification(isLoading: false));
       } on Exception catch (e) {
-        emit(AuthStateRegistering(exception: e, isLoading: false));
+        emit(AuthStateRegistering(
+          exception: e,
+          isLoading: false,
+        ));
       }
     });
     // initialize
@@ -85,9 +95,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthEventLogIn>((event, emit) async {
       emit(
         const AuthStateLoggedOut(
-            exception: null,
-            isLoading: true,
-            loadingText: "Please wait while I log you in"),
+          exception: null,
+          isLoading: true,
+          loadingText: 'Please wait while I log you in',
+        ),
       );
       final email = event.email;
       final password = event.password;
@@ -112,7 +123,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
               isLoading: false,
             ),
           );
-          emit(AuthStateLoggedIn(user: user, isLoading: false));
+          emit(AuthStateLoggedIn(
+            user: user,
+            isLoading: false,
+          ));
         }
       } on Exception catch (e) {
         emit(
