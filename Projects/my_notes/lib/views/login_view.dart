@@ -53,7 +53,7 @@ class _LoginViewState extends State<LoginView> {
           title: const Text('Login'),
         ),
         body: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(17.0),
           child: Column(
             children: [
               const Text(
